@@ -6,7 +6,7 @@ class Profile extends BaseController
 {
     public function index()
     {
-        $data['title'] = 'Profile Home';
+        $data['title'] = 'Profile Index';
         return view('profile/index', $data);
     }
 

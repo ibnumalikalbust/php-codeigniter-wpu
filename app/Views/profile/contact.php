@@ -1,4 +1,4 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend('profile/template'); ?>
 
 <?php $this->section('content'); ?>
 <header class="my-3">
