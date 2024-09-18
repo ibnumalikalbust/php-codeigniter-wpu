@@ -15,4 +15,27 @@ class ComicModel extends Model
 	protected $useSoftDeletes = true;
 	protected $tempUseSoftDeletes;
 	protected $deletedField = 'deleted_at';
+
+	public function getAllComic() {
+		$comics = $this->findAll();
+		return $comics;
+	}
+
+	public function getAllComicBySlug($slug = null) {
+		if ($slug) {
+			$comics = $this->where(['slug' => $slug])->findAll();
+		} else {
+			$comics = null;
+		}
+		return $comics;
+	}
+
+	public function getFirstComicBySlug($slug = null) {
+		if ($slug) {
+			$comic = $this->where(['slug' => $slug])->first();
+		} else {
+			$comic = null;
+		}
+		return $comic;
+	}
 }

@@ -36,7 +36,7 @@
 									<span><?= $comic['title']; ?></span>
 								</td>
 								<td class="align-middle">
-									<a href="" class="btn btn-sm btn-primary py-1">detail</a>
+									<a href="<?= base_url('/comic/detail/') . $comic['slug']; ?>" class="btn btn-sm btn-primary py-1">detail</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
