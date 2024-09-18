@@ -1,3 +1,6 @@
+<?= $this->extend('layout/template'); ?>
+
+<?php $this->section('content'); ?>
 <header class="my-3">
 	<div class="container">
 		<div class="row">
@@ -10,26 +13,13 @@
 <main>
 	<div class="container">
 		<div class="row text-center">
-			<div class="col-3">
-				<a href="<?= $contact['facebook']; ?>">
-					<i class="bi bi-facebook fs-3-0-rem"></i>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="<?= $contact['instagram']; ?>">
-					<i class="bi bi-instagram fs-3-0-rem"></i>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="<?= $contact['twitter']; ?>">
-					<i class="bi bi-twitter fs-3-0-rem"></i>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="<?= $contact['tiktok']; ?>">
-					<i class="bi bi-tiktok fs-3-0-rem"></i>
-				</a>
-			</div>
+			<?php foreach ($contact as $key => $value) : ?>
+				<div class="col-3">
+					<a href="<?= $value; ?>">
+						<i class="bi bi-<?= $key; ?> fs-3-0-rem"></i>
+					</a>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </main>
@@ -42,3 +32,4 @@
 		</div>
 	</div>
 </footer>
+<?php $this->endSection(); ?>

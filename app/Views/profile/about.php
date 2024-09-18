@@ -1,3 +1,6 @@
+<?= $this->extend('layout/template'); ?>
+
+<?php $this->section('content'); ?>
 <header class="my-3">
 	<div class="container">
 		<div class="row">
@@ -7,3 +10,4 @@
 		</div>
 	</div>
 </header>
+<?php $this->endSection(); ?>

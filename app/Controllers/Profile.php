@@ -7,19 +7,13 @@ class Profile extends BaseController
     public function index()
     {
         $data['title'] = 'Profile Home';
-        echo view('layout/header', $data);
-        echo view('layout/navbar');
-        echo view('profile/index');
-        echo view('layout/footer');
+        return view('profile/index', $data);
     }
 
     public function about()
     {
         $data['title'] = 'Profile About';
-        echo view('layout/header', $data);
-        echo view('layout/navbar');
-        echo view('profile/about');
-        echo view('layout/footer');
+        return view('profile/about', $data);
     }
 
     public function contact()
@@ -29,9 +23,6 @@ class Profile extends BaseController
         $data['contact']['instagram'] = 'https://instagram.com/ibnumalikalbust';
         $data['contact']['twitter'] = 'https://twitter.com/ibnumalikalbust';
         $data['contact']['tiktok'] = 'https://tiktok.com/ibnumalikalbust';
-        echo view('layout/header', $data);
-        echo view('layout/navbar');
-        echo view('profile/contact');
-        echo view('layout/footer');
+        return view('profile/contact', $data);
     }
 }
