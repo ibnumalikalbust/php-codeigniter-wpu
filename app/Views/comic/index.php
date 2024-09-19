@@ -14,6 +14,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
+				<?php if (session()->getFlashdata('message')) : ?>
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<?= session()->getFlashdata('message'); ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
 				<table class="table">
 					<thead>
 						<tr>

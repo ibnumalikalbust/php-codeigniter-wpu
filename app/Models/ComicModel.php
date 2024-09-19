@@ -15,6 +15,7 @@ class ComicModel extends Model
 	protected $useSoftDeletes = true;
 	protected $tempUseSoftDeletes;
 	protected $deletedField = 'deleted_at';
+	protected $allowedFields = ['title', 'slug', 'author', 'publisher', 'image'];
 
 	public function getAllComic() {
 		$comics = $this->findAll();
@@ -27,6 +28,9 @@ class ComicModel extends Model
 		} else {
 			$comics = null;
 		}
+		if (empty($comics)) {
+			throw new \CodeIgniter\Exceptions\PageNotFoundException('Comic Not Found');
+		}
 		return $comics;
 	}
 
@@ -36,6 +40,30 @@ class ComicModel extends Model
 		} else {
 			$comic = null;
 		}
+		if (empty($comic)) {
+			throw new \CodeIgniter\Exceptions\PageNotFoundException('Comic Not Found');
+		}
 		return $comic;
+	}
+
+	public function insertNewComic($data = []) {
+		if (isset($data['csrf_test_name'])) {
+			$title = ucwords(strtolower($data['title'])) ?? '';
+			$slug = url_title($title, '-', true);
+			$author = ucwords(strtolower($data['author'])) ?? '';
+			$publisher = ucwords(strtolower($data['publisher'])) ?? '';
+			$image = strtolower($data['image']) ?? '';
+			$this->save([
+				'title' => $title,
+				'slug' => $slug,
+				'author' => $author,
+				'publisher' => $publisher,
+				'image' => $image
+			]);
+			$message = "Insert Comic '$title' Success";
+		} else {
+			$message = 'CSRF Token Not Found';
+		}
+		return $message;
 	}
 }

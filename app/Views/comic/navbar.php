@@ -10,7 +10,7 @@
 					<a class="nav-link active" aria-current="page" href="<?= base_url('comic/index'); ?>">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?= base_url('comic/insert'); ?>">Add New</a>
+					<a class="nav-link" href="<?= base_url('comic/insertget'); ?>">Add New</a>
 				</li>
 			</ul>
 		</div>

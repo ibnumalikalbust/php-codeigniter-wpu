@@ -25,6 +25,9 @@
 								<p class="my-3">
 									<span class="d-block">Author : <?= $comic['author']; ?></span>
 									<span class="d-block">Publisher : <?= $comic['publisher']; ?></span>
+									<span class="d-block">Created : <?= $comic['created_at']; ?></span>
+									<span class="d-block">Updated : <?= $comic['updated_at']; ?></span>
+									<span class="d-block">Deteled : <?= $comic['deleted_at']; ?></span>
 								</p>
 								<p class="my-3">
 									<a class="btn btn-sm btn-warning" href="<?= base_url('/comic/update/') . $comic['slug']; ?>">update</a>

@@ -20,10 +20,28 @@ class Comic extends BaseController
         return view('comic/index', $data);
     }
 
-    public function detail($slug)
+    public function detail($slug = null)
     {
 		$data['title'] = 'Comic Detail';
-        $data['comic'] = $this->model->getFirstComicBySlug($slug);
-        return view('comic/detail', $data);
+        if (is_null($slug)) {
+            return redirect()->to(base_url('/comic'));
+        } else {
+            $data['comic'] = $this->model->getFirstComicBySlug($slug);
+            return view('comic/detail', $data);
+        }
+    }
+
+    public function insertget()
+    {
+        $data['title'] = 'Comic Insert';
+        return view('comic/insert', $data);
+    }
+
+    public function insertpost()
+    {
+        $data = $this->request->getPost();
+        $message = $this->model->insertNewComic($data);
+        session()->setFlashData('message', $message);
+        return redirect()->to(base_url(('/comic')));
     }
 }
