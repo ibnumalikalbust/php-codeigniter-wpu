@@ -30,8 +30,16 @@
 									<span class="d-block">Deteled : <?= $comic['deleted_at']; ?></span>
 								</p>
 								<p class="my-3">
-									<a class="btn btn-sm btn-warning" href="<?= base_url('/comic/update/') . $comic['slug']; ?>">update</a>
-									<a class="btn btn-sm btn-danger" href="<?= base_url('/comic/delete/') . $comic['slug']; ?>">delete</a>
+									<form action="<?= base_url('/comic/updateget/') . $comic['slug']; ?>" method="post" class="d-inline">
+										<?= csrf_field(); ?>
+										<input type="hidden" name="slug" value="<?= $comic['slug']; ?>">
+										<button type="submit" class="btn btn-success">update</button>
+									</form>
+									<form action="<?= base_url('/comic/delete/') . $comic['slug']; ?>" method="post" class="d-inline">
+										<?= csrf_field(); ?>
+										<input type="hidden" name="slug" value="<?= $comic['slug']; ?>">
+										<button type="submit" class="btn btn-danger">delete</button>
+									</form>
 								</p>
 								<p class="my-3">
 									<a href="<?= base_url('/comic'); ?>">see all list of comic</a>

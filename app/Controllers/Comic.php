@@ -42,20 +42,85 @@ class Comic extends BaseController
 
     public function insertpost()
     {
+        $data = $this->request->getPost();
         $validation = \Config\Services::validation();
-        $validation->setRules([
-            'title' => 'required|is_unique[comic.title]',
-            'author' => 'required',
-            'publisher' => 'required',
-            'image' => 'required'
-        ]);
+        $rules['title'] = 'required|is_unique[comic.title]';
+        $rules['author'] = 'required';
+        $rules['publisher'] = 'required';
+        $rules['image'] = 'required';
+        $validation->setRules($rules);
         if ($validation->withRequest($this->request)->run() == true) {
-            $data = $this->request->getPost();
             $message = $this->model->insertNewComic($data);
             session()->setFlashData('message', $message);
-            return redirect()->to(base_url(('/comic')));
+            return redirect()->to(base_url('/comic'));
         } else {
             return redirect()->to(base_url('/comic/insertget'))->withInput();
+        }
+    }
+
+    public function updateget($slug = null) {
+        $data['title'] = 'Comic Update';
+        $slugGet = $slug;
+        $post = $this->request->getPost();
+        $slugPost = isset($post['slug']) ? $post['slug'] : null;
+        if ($slugGet ==  $slugPost) {
+            $data['comic'] = $this->model->getFirstComicBySlug($slug);
+            return view('comic/update', $data);
+        } else {
+            $flashData = session()->getFlashdata();
+            if ($flashData) {
+                $data['comic'] = $this->model->getFirstComicBySlug($slug);
+                if (isset($flashData['_ci_old_input']['post'])) {
+                    $data['postInput'] = $flashData['_ci_old_input']['post'];
+                }
+                if (isset($flashData['_ci_validation_errors'])) {
+                    $data['postError'] = $flashData['_ci_validation_errors'];
+                }
+                return view('comic/update', $data);
+            }
+            return redirect()->to(base_url('/comic'));
+        }
+    }
+
+    public function updatepost($slug = null) {
+        $slugGet = $slug;
+        $post = $this->request->getPost();
+        $slugPost = isset($post['slug']) ? $post['slug'] : null;
+        if ($slugGet ==  $slugPost) {
+            $validation = \Config\Services::validation();
+            $oldTitle = $this->model->getFirstComicBySlug($slug)['title'];
+            $newTitle = $post['title'];
+            if ($oldTitle == $newTitle) {
+                $rules['title'] = 'required';
+            } else {
+                $rules['title'] = 'required|is_unique[comic.title]';
+            }
+            $rules['author'] = 'required';
+            $rules['publisher'] = 'required';
+            $rules['image'] = 'required';
+            $validation->setRules($rules);
+            if ($validation->withRequest($this->request)->run() == true) {
+                $message = $this->model->updateComicBySlug($slug, $post);
+                session()->setFlashData('message', $message);
+                return redirect()->to(base_url('/comic'));
+            } else {
+                return redirect()->to(base_url('/comic/updateget/') . $slug)->withInput();
+            }
+        } else {
+            return redirect()->to(base_url('/comic'));
+        }
+    }
+
+    public function delete($slug = null) {
+        $slugGet = $slug;
+        $post = $this->request->getPost();
+        $slugPost = isset($post['slug']) ? $post['slug'] : null;
+        if ($slugGet ==  $slugPost) {
+            $message = $this->model->deleteComicBySlug($slug);
+            session()->setFlashData('message', $message);
+            return redirect()->to(base_url('/comic'));
+        } else {
+            return redirect()->to(base_url('/comic'));
         }
     }
 }
