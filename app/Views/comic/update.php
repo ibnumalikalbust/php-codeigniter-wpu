@@ -19,7 +19,7 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<form action="<?= base_url('/comic/updatepost/') . $comic['slug']; ?>" method="post" autocomplete="off">
+				<form action="<?= base_url('/comic/updatepost/') . $comic['slug']; ?>" method="post" autocomplete="off" enctype="multipart/form-data">
 					<?= csrf_field(); ?>
 					<div class="row mb-3">
 						<label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -59,14 +59,21 @@
 					</div>
 					<div class="row mb-3">
 						<label for="image" class="col-sm-2 col-form-label">Image</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control <?= isset($postError['image']) ? 'is-invalid' : ''; ?>" id="image" name="image" value="<?= isset($postInput['image']) ? $postInput['image'] : $comic['image']; ?>">
+						<div class="col-sm-2">
+							<img src="<?= base_url('/img/') . $comic['image']; ?>" id="img-preview" class="img-thumbnail">
+						</div>
+						<div class="col-sm-8">
+							<input type="file" name="image" id="image" class="form-control <?= isset($postError['image']) ? 'is-invalid' : ''; ?>" onchange="changePreviewImage()">
 							<div class="invalid-feedback">
 								<span><?= isset($postError['image']) ? $postError['image'] : ''; ?></span>
 							</div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary">UPDATE</button>
+					<div class="row mb-3">
+						<div class="col">
+							<button type="submit" class="btn btn-primary">INSERT</button>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>

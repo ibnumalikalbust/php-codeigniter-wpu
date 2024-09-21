@@ -81,19 +81,27 @@ class ComicModel extends Model
 		if ($slug && $post) {
 			$oldComic = $this->where('slug', $slug)->first();
 			$oldID = $oldComic['id'];
+			$oldImage = $oldComic['image'];
 			$newComic = $post;
 			$newID = $oldID;
 			$newTitle = ucwords(strtolower($newComic['title'])) ?? '';
 			$newSlug = url_title($newTitle, '-', true);
 			$newAuthor = ucwords(strtolower($newComic['author'])) ?? '';
 			$newPublisher = ucwords(strtolower($newComic['publisher'])) ?? '';
-			$newImage = strtolower($newComic['image']) ?? '';
+			$newImageFile = $post['imageFile'];
+			$imageError = $newImageFile->getError();
+			if ($imageError == 4) {
+				$newImageName = $oldImage;
+			} else {
+				$newImageName = $newSlug . '_' . time() . '.jpg';
+				$newImageFile->move('img', $newImageName);
+			}
 			$data['id'] = $newID;
 			$data['title'] = $newTitle;
 			$data['slug'] = $newSlug;
 			$data['author'] = $newAuthor;
 			$data['publisher'] = $newPublisher;
-			$data['image'] = $newImage;
+			$data['image'] = $newImageName;
 			$update = $this->save($data);
 			if ($update) {
 				$message = "Update Comic '$newTitle' Success";
