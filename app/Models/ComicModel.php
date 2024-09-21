@@ -52,12 +52,19 @@ class ComicModel extends Model
 			$slug = url_title($title, '-', true);
 			$author = ucwords(strtolower($data['author'])) ?? '';
 			$publisher = ucwords(strtolower($data['publisher'])) ?? '';
-			$image = strtolower($data['image']) ?? '';
+			$imageFile = $data['imageFile'];
+			$imageError = $imageFile->getError();
+			if ($imageError == 4) {
+				$imageName = 'comic-default.jpg';
+			} else {
+				$imageName = $slug . '_' . time() . '.jpg';
+				$imageFile->move('img', $imageName);
+			}
 			$data['title'] = $title;
 			$data['slug'] = $slug;
 			$data['author'] = $author;
 			$data['publisher'] = $publisher;
-			$data['image'] = $image;
+			$data['image'] = $imageName;
 			$insert = $this->save($data);
 			if ($insert) {
 				$message = "Insert Comic '$title' Success";

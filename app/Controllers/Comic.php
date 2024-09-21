@@ -42,14 +42,22 @@ class Comic extends BaseController
 
     public function insertpost()
     {
-        $data = $this->request->getPost();
         $validation = \Config\Services::validation();
         $rules['title'] = 'required|is_unique[comic.title]';
         $rules['author'] = 'required';
         $rules['publisher'] = 'required';
-        $rules['image'] = 'required';
-        $validation->setRules($rules);
+        // $rules['image'] = 'is_image[image]|ext_in[image,jpg]|mime_in[image,image/jpg,image/jpeg]|max_dims[image,1000,1000]|max_size[image,1024]';
+        $rules['image'] = 'ext_in[image,jpg]|mime_in[image,image/jpg,image/jpeg]|max_dims[image,1000,1000]|max_size[image,1024]';
+        // $errors['image']['uploaded'] = 'you have to upload the file';
+        $errors['image']['is_image'] = 'file must be an image';
+        $errors['image']['ext_in'] = 'image must be in jpg format';
+        $errors['image']['mime_in'] = 'file mime type must be an jpg or jpeg';
+        $errors['image']['max_dims'] = 'image dimensions cannot exceed 1000 pixels';
+        $errors['image']['max_size'] = 'image size cannot exceed 1000 kilobytes';
+        $validation->setRules($rules, $errors);
         if ($validation->withRequest($this->request)->run() == true) {
+            $data = $this->request->getPost();
+            $data['imageFile'] = $this->request->getFile('image');
             $message = $this->model->insertNewComic($data);
             session()->setFlashData('message', $message);
             return redirect()->to(base_url('/comic'));
@@ -86,7 +94,7 @@ class Comic extends BaseController
         $slugGet = $slug;
         $post = $this->request->getPost();
         $slugPost = isset($post['slug']) ? $post['slug'] : null;
-        if ($slugGet ==  $slugPost) {
+        if ($slugGet == $slugPost) {
             $validation = \Config\Services::validation();
             $oldTitle = $this->model->getFirstComicBySlug($slug)['title'];
             $newTitle = $post['title'];
