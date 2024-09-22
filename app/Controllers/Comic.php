@@ -43,7 +43,7 @@ class Comic extends BaseController
     public function insertpost()
     {
         $validation = \Config\Services::validation();
-        $rules['title'] = 'required|is_unique[comic.title]';
+        $rules['title'] = 'required|is_unique[testing_comic.title]';
         $rules['author'] = 'required';
         $rules['publisher'] = 'required';
         $rules['image'] = 'ext_in[image,jpg]|mime_in[image,image/jpg,image/jpeg]|max_dims[image,1000,1000]|max_size[image,1024]';
@@ -99,7 +99,7 @@ class Comic extends BaseController
             if ($oldTitle == $newTitle) {
                 $rules['title'] = 'required';
             } else {
-                $rules['title'] = 'required|is_unique[comic.title]';
+                $rules['title'] = 'required|is_unique[testing_comic.title]';
             }
             $rules['author'] = 'required';
             $rules['publisher'] = 'required';
