@@ -2,17 +2,28 @@
 
 namespace App\Controllers;
 
+use App\Models\ProfileModel;
+
 class Profile extends BaseController
 {
+    protected $model;
+
+    public function __construct()
+    {
+        $this->model = new ProfileModel;
+    }
+    
     public function index()
     {
         $data['title'] = 'Profile Index';
+        $data['author'] = 'Habibullah';
         return view('profile/index', $data);
     }
 
     public function about()
     {
         $data['title'] = 'Profile About';
+        $data['person'] = $this->model->getFakeData();
         return view('profile/about', $data);
     }
 

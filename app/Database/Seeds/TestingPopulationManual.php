@@ -5,7 +5,7 @@ namespace App\Database\Seeds;
 use CodeIgniter\Database\Seeder;
 use CodeIgniter\I18n\Time;
 
-class TestingPopulation extends Seeder
+class TestingPopulationManual extends Seeder
 {
     protected $table = 'testing_population';
 
