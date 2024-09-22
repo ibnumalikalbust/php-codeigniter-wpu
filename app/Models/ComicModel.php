@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ComicModel extends Model
 {
-	protected $table = 'comic';
+	protected $table = 'testing_comic';
     protected $primaryKey = 'id';
 	protected $useTimestamps = true;
 	protected $dateFormat = 'datetime';
