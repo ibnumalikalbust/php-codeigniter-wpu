@@ -71,7 +71,7 @@
 					</div>
 					<div class="row mb-3">
 						<div class="col">
-							<button type="submit" class="btn btn-primary">INSERT</button>
+							<button type="submit" class="btn btn-primary">UPDATE</button>
 						</div>
 					</div>
 				</form>
