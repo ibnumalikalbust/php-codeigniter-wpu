@@ -23,10 +23,10 @@
 		</div>
 		<div class="row">
 			<div class="col-12 w-100 max-w-500-px mx-auto">
-				<form action="<?= base_url('population'); ?>" method="post">
+				<form action="<?= base_url('population'); ?>" method="get">
 					<div class="input-group mb-3">
 						<input type="text" name="keyword" class="form-control" placeholder="Mau cari siapa nih....?">
-						<button type="submit" name="submit" class="btn btn-outline-secondary">SEARCH</button>
+						<button type="submit" class="btn btn-outline-secondary">SEARCH</button>
 					</div>
 				</form>
 			</div>

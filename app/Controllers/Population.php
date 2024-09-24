@@ -16,7 +16,7 @@ class Population extends BaseController
     public function index()
     {
 		$data['title'] = 'Population List';
-		$keyword = $this->request->getPost('keyword');
+		$keyword = $this->request->getGet('keyword');
 		$data['populations'] = $this->model->getPopulations($keyword);
 		$data['pager'] = $this->model->pager;
 		return view('population/index', $data);
