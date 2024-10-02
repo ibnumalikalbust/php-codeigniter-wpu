@@ -1,4 +1,4 @@
-<?= $this->extend('comic/template'); ?>
+<?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
 <header class="my-3">

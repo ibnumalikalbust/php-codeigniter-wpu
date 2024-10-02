@@ -1,4 +1,4 @@
-<?= $this->extend('population/template'); ?>
+<?= $this->extend('layout/template'); ?>
 
 <?php $this->section('content'); ?>
 <header class="my-3">

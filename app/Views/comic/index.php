@@ -1,4 +1,4 @@
-<?= $this->extend('comic/template'); ?>
+<?= $this->extend('layout/template'); ?>
 
 <?php $this->section('content'); ?>
 <header class="my-3">
@@ -19,6 +19,11 @@
 						<?= session()->getFlashdata('message'); ?>
 					</div>
 				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col text-right">
+				<a class="btn btn-primary" href="<?= base_url('comic/insertget'); ?>">ADD NEW</a>
 			</div>
 		</div>
 		<div class="row">
